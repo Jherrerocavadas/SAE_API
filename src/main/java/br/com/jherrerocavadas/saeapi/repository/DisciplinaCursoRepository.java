@@ -11,4 +11,6 @@ public interface DisciplinaCursoRepository  extends JpaRepository<DisciplinaCurs
     List<DisciplinaCurso> getDisciplinaCursoByCurso(Curso curso);
 
     List<DisciplinaCurso> getDisciplinaCursoByCursoNomeCurso(String nomeCurso);
+
+    List<DisciplinaCurso> getDisciplinaCursoByCursoSiglaCurso(String siglaCurso);
 }
