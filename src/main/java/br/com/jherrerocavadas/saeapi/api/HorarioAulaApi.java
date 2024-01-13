@@ -75,8 +75,8 @@ public class HorarioAulaApi {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
     })
     @GetMapping("/horariosAula/numeroAula/{numeroAulas}")
-    public ResponseEntity<List<HorarioAula>> retornarHorarioAulaPorNumeroAula(@PathVariable Integer numeroAula){
-        List<HorarioAula> horariosAula = horarioAulaRepository.getHorarioAulaByNumeroAula(numeroAula);
+    public ResponseEntity<List<HorarioAula>> retornarHorarioAulaPorNumeroAula(@PathVariable Integer numeroAulas){
+        List<HorarioAula> horariosAula = horarioAulaRepository.getHorarioAulaByNumeroAula(numeroAulas);
         if(Objects.nonNull(horariosAula)){
             return ResponseEntity.ok(horariosAula);
         }

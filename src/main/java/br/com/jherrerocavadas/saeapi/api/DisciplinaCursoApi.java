@@ -59,7 +59,7 @@ public class DisciplinaCursoApi {
     })
     @GetMapping("/disciplinasCursos/cursos/{nomeCurso}")
     public ResponseEntity<List<DisciplinaCurso>> retornarCursoPorNumeroAula(@PathVariable String nomeCurso){
-        List<DisciplinaCurso> disciplinasPorCurso = disciplinaCursoRepository.getDisciplinaCursoByNomeCurso(nomeCurso);
+        List<DisciplinaCurso> disciplinasPorCurso = disciplinaCursoRepository.getDisciplinaCursoByCursoNomeCurso(nomeCurso);
         if(Objects.nonNull(disciplinasPorCurso)){
             return ResponseEntity.ok(disciplinasPorCurso);
         }
