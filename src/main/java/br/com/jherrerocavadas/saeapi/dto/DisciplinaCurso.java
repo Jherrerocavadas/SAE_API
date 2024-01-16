@@ -23,6 +23,13 @@ public class DisciplinaCurso {
 //    private Long cursoId;
 
     @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "faculdadeId", referencedColumnName = "id",
+//            insertable=false, updatable=false,
+            foreignKey = @ForeignKey(name = "UK_DISCIPLINACURSO_FACULDADE", value = ConstraintMode.CONSTRAINT))
+    private Faculdade faculdade;
+
+
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "cursoId", referencedColumnName = "id",
 //            insertable=false, updatable=false,
             foreignKey = @ForeignKey(name = "UK_DISCIPLINACURSO_CURSO", value = ConstraintMode.CONSTRAINT))
