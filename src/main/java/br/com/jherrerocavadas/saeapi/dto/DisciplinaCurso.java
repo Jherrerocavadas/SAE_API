@@ -70,7 +70,8 @@ public class DisciplinaCurso {
     private HorarioAula horaAula4;
 
     private Integer semestre;
-    private DiaSemana diaDaSemana;
+    private DiaSemana diaDeAula1;
+    private DiaSemana diaDeAula2;
 
 
 }

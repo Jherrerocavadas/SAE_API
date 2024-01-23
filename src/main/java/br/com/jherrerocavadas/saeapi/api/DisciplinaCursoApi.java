@@ -88,6 +88,25 @@ public class DisciplinaCursoApi {
         }
     }
 
+    @Operation(summary =  "Retornar todas as disciplinas de registradas para determinado curso (pesquisa por sigla do curso)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description =  "Disciplinas do curso retornadas"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
+    })
+    @GetMapping("/disciplinasCursos/cursos/teste")
+    public ResponseEntity<List<DisciplinaCurso>> retornarTeste(@Param("siglaCurso") String siglaCurso, @Param("codFaculdade") String codFaculdade){
+        List<DisciplinaCurso> disciplinasPorCurso = disciplinaCursoRepository.getDisciplinaCursoByCursoSiglaCursoAndFaculdadeCodFaculdade(siglaCurso, codFaculdade);
+        if(Objects.nonNull(disciplinasPorCurso)){
+            return ResponseEntity.ok(disciplinasPorCurso);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
     @Operation(summary =  "Cadastrar um nova relação disciplina-curso")
     @ApiResponses(value = {
