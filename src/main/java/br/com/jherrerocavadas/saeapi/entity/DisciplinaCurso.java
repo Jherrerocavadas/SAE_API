@@ -1,10 +1,12 @@
-package br.com.jherrerocavadas.saeapi.dto;
+package br.com.jherrerocavadas.saeapi.entity;
 
 import br.com.jherrerocavadas.saeapi.enums.DiaSemana;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -17,11 +19,7 @@ public class DisciplinaCurso {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
-
-//    @Column(insertable=true, updatable=true)
-//    private Long cursoId;
-
+    //Dados da faculdade
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "faculdadeId", referencedColumnName = "id",
 //            insertable=false, updatable=false,
@@ -29,21 +27,26 @@ public class DisciplinaCurso {
     private Faculdade faculdade;
 
 
+    //Dados do curso
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "cursoId", referencedColumnName = "id",
 //            insertable=false, updatable=false,
             foreignKey = @ForeignKey(name = "UK_DISCIPLINACURSO_CURSO", value = ConstraintMode.CONSTRAINT))
     private Curso curso;
 
-//    @Column(insertable=true, updatable=true)
-//    private Long disciplinaId;
-
+    //Dados da disciplina
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "disciplinaId", referencedColumnName = "id",
 //            insertable=false, updatable=false,
             foreignKey = @ForeignKey(name = "UK_DISCIPLINACURSO_DISCIPLINA", value = ConstraintMode.CONSTRAINT))
 
     private Disciplina disciplina;
+
+/*--------------------< Dados dos horários de aula da disciplina >--------------------*/
+
+
+
+
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "horarioAula1_id", referencedColumnName = "id",
@@ -70,6 +73,7 @@ public class DisciplinaCurso {
     private HorarioAula horaAula4;
 
     private Integer semestre;
+
     private DiaSemana diaDeAula1;
     private DiaSemana diaDeAula2;
 

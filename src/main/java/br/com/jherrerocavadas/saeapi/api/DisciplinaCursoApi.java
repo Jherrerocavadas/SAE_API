@@ -1,6 +1,9 @@
 package br.com.jherrerocavadas.saeapi.api;
 
-import br.com.jherrerocavadas.saeapi.dto.DisciplinaCurso;
+import br.com.jherrerocavadas.saeapi.api.dto.DisciplinaCursoDTO;
+import br.com.jherrerocavadas.saeapi.entity.DisciplinaCurso;
+import br.com.jherrerocavadas.saeapi.entity.HorarioAula;
+import br.com.jherrerocavadas.saeapi.enums.DiaSemana;
 import br.com.jherrerocavadas.saeapi.repository.DisciplinaCursoRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,6 +14,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,8 +49,33 @@ public class DisciplinaCursoApi {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
     })
     @GetMapping("/disciplinasCursos")
-    public List<DisciplinaCurso> retornarDisciplinaCursos(){
-        return disciplinaCursoRepository.findAll();
+    public List<DisciplinaCursoDTO> retornarDisciplinaCursos(){
+        List<DisciplinaCurso> disciplinasPorCurso = disciplinaCursoRepository.findAll();
+        List<DisciplinaCursoDTO> disciplinasCursoDTO = new ArrayList<>();
+            for (DisciplinaCurso disciplinaCurso: disciplinasPorCurso) {
+                DisciplinaCursoDTO disciplinaCursoDTO = new DisciplinaCursoDTO();
+                List<HorarioAula> horasAula = new ArrayList<>();
+                List<DiaSemana> diasAula = new ArrayList<>();
+
+                horasAula.add(disciplinaCurso.getHoraAula1());
+                horasAula.add(disciplinaCurso.getHoraAula2());
+                horasAula.add(disciplinaCurso.getHoraAula3());
+                horasAula.add(disciplinaCurso.getHoraAula4());
+
+                diasAula.add(disciplinaCurso.getDiaDeAula1());
+                diasAula.add(disciplinaCurso.getDiaDeAula2());
+
+                disciplinaCursoDTO.setId(disciplinaCurso.getId());
+                disciplinaCursoDTO.setDisciplina(disciplinaCurso.getDisciplina());
+                disciplinaCursoDTO.setFaculdade(disciplinaCurso.getFaculdade());
+                disciplinaCursoDTO.setSemestre(disciplinaCurso.getSemestre());
+                disciplinaCursoDTO.setCurso(disciplinaCurso.getCurso());
+                disciplinaCursoDTO.setHorasAula(horasAula);
+                disciplinaCursoDTO.setDiasDeAula(diasAula);
+
+                disciplinasCursoDTO.add(disciplinaCursoDTO);
+            }
+        return disciplinasCursoDTO;
     }
 
 
@@ -59,10 +88,44 @@ public class DisciplinaCursoApi {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
     })
     @GetMapping("/disciplinasCursos/cursos/{nomeCurso}")
-    public ResponseEntity<List<DisciplinaCurso>> retornarDisciplinaCursoPorNomeCurso(@PathVariable String nomeCurso){
+    public ResponseEntity<List<DisciplinaCursoDTO>> retornarDisciplinaCursoPorNomeCurso(@PathVariable String nomeCurso){
         List<DisciplinaCurso> disciplinasPorCurso = disciplinaCursoRepository.getDisciplinaCursoByCursoNomeCurso(nomeCurso);
+        List<DisciplinaCursoDTO> disciplinasCursoDTO = new ArrayList<>();
         if(Objects.nonNull(disciplinasPorCurso)){
-            return ResponseEntity.ok(disciplinasPorCurso);
+
+            for (DisciplinaCurso disciplinaCurso: disciplinasPorCurso) {
+                DisciplinaCursoDTO disciplinaCursoDTO = new DisciplinaCursoDTO();
+                List<HorarioAula> horasAula = new ArrayList<>();
+                List<DiaSemana> diasAula = new ArrayList<>();
+
+                horasAula.add(disciplinaCurso.getHoraAula1());
+                horasAula.add(disciplinaCurso.getHoraAula2());
+
+                if(Objects.nonNull(disciplinaCurso.getHoraAula3()) && Objects.nonNull(disciplinaCurso.getHoraAula4())){
+                    horasAula.add(disciplinaCurso.getHoraAula3());
+                    horasAula.add(disciplinaCurso.getHoraAula4());
+                }
+
+                diasAula.add(disciplinaCurso.getDiaDeAula1());
+                if(Objects.nonNull(disciplinaCurso.getDiaDeAula2())){
+                    diasAula.add(disciplinaCurso.getDiaDeAula2());
+                }
+
+
+                disciplinaCursoDTO.setId(disciplinaCurso.getId());
+                disciplinaCursoDTO.setDisciplina(disciplinaCurso.getDisciplina());
+                disciplinaCursoDTO.setFaculdade(disciplinaCurso.getFaculdade());
+                disciplinaCursoDTO.setSemestre(disciplinaCurso.getSemestre());
+                disciplinaCursoDTO.setCurso(disciplinaCurso.getCurso());
+                disciplinaCursoDTO.setHorasAula(horasAula);
+                disciplinaCursoDTO.setDiasDeAula(diasAula);
+
+                disciplinasCursoDTO.add(disciplinaCursoDTO);
+            }
+
+
+
+            return ResponseEntity.ok(disciplinasCursoDTO);
         }
         else{
             return ResponseEntity.notFound().build();
@@ -78,10 +141,44 @@ public class DisciplinaCursoApi {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
     })
     @GetMapping("/disciplinasCursos/cursos")
-    public ResponseEntity<List<DisciplinaCurso>> retornarDisciplinaCursoPorSiglaCurso(@Param("siglaCurso") String siglaCurso){
+    public ResponseEntity<List<DisciplinaCursoDTO>> retornarDisciplinaCursoPorSiglaCurso(@Param("siglaCurso") String siglaCurso){
         List<DisciplinaCurso> disciplinasPorCurso = disciplinaCursoRepository.getDisciplinaCursoByCursoSiglaCurso(siglaCurso);
+        List<DisciplinaCursoDTO> disciplinasCursoDTO = new ArrayList<>();
         if(Objects.nonNull(disciplinasPorCurso)){
-            return ResponseEntity.ok(disciplinasPorCurso);
+
+            for (DisciplinaCurso disciplinaCurso: disciplinasPorCurso) {
+                DisciplinaCursoDTO disciplinaCursoDTO = new DisciplinaCursoDTO();
+                List<HorarioAula> horasAula = new ArrayList<>();
+                List<DiaSemana> diasAula = new ArrayList<>();
+
+                horasAula.add(disciplinaCurso.getHoraAula1());
+                horasAula.add(disciplinaCurso.getHoraAula2());
+
+                if(Objects.nonNull(disciplinaCurso.getHoraAula3()) && Objects.nonNull(disciplinaCurso.getHoraAula4())){
+                    horasAula.add(disciplinaCurso.getHoraAula3());
+                    horasAula.add(disciplinaCurso.getHoraAula4());
+                }
+
+                diasAula.add(disciplinaCurso.getDiaDeAula1());
+                if(Objects.nonNull(disciplinaCurso.getDiaDeAula2())){
+                    diasAula.add(disciplinaCurso.getDiaDeAula2());
+                }
+
+
+                disciplinaCursoDTO.setId(disciplinaCurso.getId());
+                disciplinaCursoDTO.setDisciplina(disciplinaCurso.getDisciplina());
+                disciplinaCursoDTO.setFaculdade(disciplinaCurso.getFaculdade());
+                disciplinaCursoDTO.setSemestre(disciplinaCurso.getSemestre());
+                disciplinaCursoDTO.setCurso(disciplinaCurso.getCurso());
+                disciplinaCursoDTO.setHorasAula(horasAula);
+                disciplinaCursoDTO.setDiasDeAula(diasAula);
+
+                disciplinasCursoDTO.add(disciplinaCursoDTO);
+            }
+
+
+
+            return ResponseEntity.ok(disciplinasCursoDTO);
         }
         else{
             return ResponseEntity.notFound().build();
@@ -96,10 +193,38 @@ public class DisciplinaCursoApi {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
     })
     @GetMapping("/disciplinasCursos/cursos/teste")
-    public ResponseEntity<List<DisciplinaCurso>> retornarTeste(@Param("siglaCurso") String siglaCurso, @Param("codFaculdade") String codFaculdade){
+    public ResponseEntity<List<DisciplinaCursoDTO>> retornarTeste(@Param("siglaCurso") String siglaCurso, @Param("codFaculdade") String codFaculdade){
         List<DisciplinaCurso> disciplinasPorCurso = disciplinaCursoRepository.getDisciplinaCursoByCursoSiglaCursoAndFaculdadeCodFaculdade(siglaCurso, codFaculdade);
+        List<DisciplinaCursoDTO> disciplinasCursoDTO = new ArrayList<>();
         if(Objects.nonNull(disciplinasPorCurso)){
-            return ResponseEntity.ok(disciplinasPorCurso);
+
+            for (DisciplinaCurso disciplinaCurso: disciplinasPorCurso) {
+                DisciplinaCursoDTO disciplinaCursoDTO = new DisciplinaCursoDTO();
+                List<HorarioAula> horasAula = new ArrayList<>();
+                List<DiaSemana> diasAula = new ArrayList<>();
+
+                horasAula.add(disciplinaCurso.getHoraAula1());
+                horasAula.add(disciplinaCurso.getHoraAula2());
+                horasAula.add(disciplinaCurso.getHoraAula3());
+                horasAula.add(disciplinaCurso.getHoraAula4());
+
+                diasAula.add(disciplinaCurso.getDiaDeAula1());
+                diasAula.add(disciplinaCurso.getDiaDeAula2());
+
+                disciplinaCursoDTO.setId(disciplinaCurso.getId());
+                disciplinaCursoDTO.setDisciplina(disciplinaCurso.getDisciplina());
+                disciplinaCursoDTO.setFaculdade(disciplinaCurso.getFaculdade());
+                disciplinaCursoDTO.setSemestre(disciplinaCurso.getSemestre());
+                disciplinaCursoDTO.setCurso(disciplinaCurso.getCurso());
+                disciplinaCursoDTO.setHorasAula(horasAula);
+                disciplinaCursoDTO.setDiasDeAula(diasAula);
+
+                disciplinasCursoDTO.add(disciplinaCursoDTO);
+            }
+
+
+
+            return ResponseEntity.ok(disciplinasCursoDTO);
         }
         else{
             return ResponseEntity.notFound().build();

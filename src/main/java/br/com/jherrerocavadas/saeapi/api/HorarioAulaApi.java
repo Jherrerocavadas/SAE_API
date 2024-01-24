@@ -1,6 +1,6 @@
 package br.com.jherrerocavadas.saeapi.api;
 
-import br.com.jherrerocavadas.saeapi.dto.HorarioAula;
+import br.com.jherrerocavadas.saeapi.entity.HorarioAula;
 import br.com.jherrerocavadas.saeapi.enums.Periodo;
 import br.com.jherrerocavadas.saeapi.repository.HorarioAulaRepository;
 import io.swagger.v3.oas.annotations.Operation;

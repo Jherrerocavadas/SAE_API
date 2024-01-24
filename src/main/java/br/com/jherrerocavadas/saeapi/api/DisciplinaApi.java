@@ -1,7 +1,7 @@
 package br.com.jherrerocavadas.saeapi.api;
 
 
-import br.com.jherrerocavadas.saeapi.dto.Disciplina;
+import br.com.jherrerocavadas.saeapi.entity.Disciplina;
 import br.com.jherrerocavadas.saeapi.repository.DisciplinaRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -1,6 +1,6 @@
 package br.com.jherrerocavadas.saeapi.repository;
 
-import br.com.jherrerocavadas.saeapi.dto.HorarioAula;
+import br.com.jherrerocavadas.saeapi.entity.HorarioAula;
 import br.com.jherrerocavadas.saeapi.enums.Periodo;
 import org.springframework.data.jpa.repository.JpaRepository;
 

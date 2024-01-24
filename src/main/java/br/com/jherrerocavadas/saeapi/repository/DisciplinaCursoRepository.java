@@ -1,7 +1,7 @@
 package br.com.jherrerocavadas.saeapi.repository;
 
-import br.com.jherrerocavadas.saeapi.dto.Curso;
-import br.com.jherrerocavadas.saeapi.dto.DisciplinaCurso;
+import br.com.jherrerocavadas.saeapi.entity.Curso;
+import br.com.jherrerocavadas.saeapi.entity.DisciplinaCurso;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

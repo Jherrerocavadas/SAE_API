@@ -1,6 +1,6 @@
 package br.com.jherrerocavadas.saeapi.api;
 
-import br.com.jherrerocavadas.saeapi.dto.Faculdade;
+import br.com.jherrerocavadas.saeapi.entity.Faculdade;
 import br.com.jherrerocavadas.saeapi.repository.FaculdadeRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
