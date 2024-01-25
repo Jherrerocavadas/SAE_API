@@ -24,5 +24,6 @@ public class Disciplina {
     private String siglaDisciplina;
     private Integer quantidadeAulas;
     private Boolean isDisciplinaEspecial;
+    private String corDisciplina; //Cor Hexadecimal (no padrão #xxxxxx) personalizada para a disciplina, para utilização no front
 
 }
