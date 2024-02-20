@@ -1,8 +1,7 @@
 package br.com.jherrerocavadas.saeapi.api;
 
 import br.com.jherrerocavadas.saeapi.api.dto.DisciplinaCursoDTO;
-import br.com.jherrerocavadas.saeapi.entity.DisciplinaCurso;
-import br.com.jherrerocavadas.saeapi.entity.HorarioAula;
+import br.com.jherrerocavadas.saeapi.entity.*;
 import br.com.jherrerocavadas.saeapi.enums.DiaSemana;
 import br.com.jherrerocavadas.saeapi.repository.DisciplinaCursoRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -240,8 +239,42 @@ public class DisciplinaCursoApi {
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
     })
-    @PostMapping("/disciplinaCursos")
-    public void salvarDisciplinaCurso(@RequestBody DisciplinaCurso disciplinaCurso){
+    @PostMapping("/disciplinasCursos")
+    public void salvarDisciplinaCurso(@RequestBody DisciplinaCursoDTO disciplinaCursoDTO){
+        DisciplinaCurso disciplinaCurso = new DisciplinaCurso();
+//        disciplinaCurso.setFaculdade(new Faculdade(disciplinaCursoDTO.getFaculdadeId()));
+//        disciplinaCurso.setCurso(new Curso(disciplinaCursoDTO.getCursoId()));
+//        disciplinaCurso.setDisciplina(new Disciplina(disciplinaCursoDTO.getDisciplinaId()));
+
+
+        disciplinaCurso.setFaculdade(disciplinaCursoDTO.getFaculdade());
+        disciplinaCurso.setCurso(disciplinaCursoDTO.getCurso());
+        disciplinaCurso.setDisciplina(disciplinaCursoDTO.getDisciplina());
+//        disciplinaCurso.setHoraAula1(new HorarioAula(disciplinaCursoDTO.getHorasAula().get(0).getId()));
+//        disciplinaCurso.setHoraAula1(new HorarioAula(disciplinaCursoDTO.getHorasAula().get(1).getId()));
+//        disciplinaCurso.setHoraAula2(new HorarioAula(disciplinaCursoDTO.getHorasAula().get(2).getId()));
+//        disciplinaCurso.setHoraAula3(new HorarioAula(disciplinaCursoDTO.getHorasAula().get(3).getId()));
+
+        if(!disciplinaCursoDTO.getHorasAula().isEmpty()){
+            disciplinaCurso.setHoraAula1(disciplinaCursoDTO.getHorasAula().get(0));
+            disciplinaCurso.setHoraAula2(disciplinaCursoDTO.getHorasAula().get(1));
+            disciplinaCurso.setDiaDeAula1(disciplinaCursoDTO.getDiasDeAula().get(0));
+            disciplinaCurso.setSemestre(disciplinaCursoDTO.getSemestre());
+
+            if (disciplinaCursoDTO.getHorasAula().size() == 4) {
+                disciplinaCurso.setHoraAula3(disciplinaCursoDTO.getHorasAula().get(2));
+                disciplinaCurso.setHoraAula4(disciplinaCursoDTO.getHorasAula().get(3));
+
+            }
+
+            if(disciplinaCursoDTO.getDiasDeAula().size() == 2){
+                disciplinaCurso.setDiaDeAula2(disciplinaCursoDTO.getDiasDeAula().get(1));
+            }
+        }
+
+
+        log.info(String.valueOf(disciplinaCurso));
+
         disciplinaCursoRepository.save(disciplinaCurso);
     }
 

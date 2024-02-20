@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -47,6 +49,21 @@ public class UtilsApi {
         return periodos;
     }
 
+    @GetMapping("/periodos/teste")
+    public List<Map<String, String>> retornarPeriodosTeste() {
+
+        List<Map<String, String>> periodos = new ArrayList<>();
+
+        for (Periodo periodosEnum:
+                List.of(Periodo.values())) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("cod" ,periodosEnum.name());
+            map.put("valor", periodosEnum.getNomePeriodo());
+            periodos.add(map);
+        }
+
+        return periodos;
+    }
 
     //Utilizar para retornar as strings no front
     @Operation(summary =  "Retornar todos os dias da semana cadastrados")
@@ -64,6 +81,22 @@ public class UtilsApi {
             dias.add(diaSemanaEnum.getDiaDaSemana());
         }
         
+        return dias;
+    }
+
+    @GetMapping("/diasSemana/teste")
+    public List<Map<String, String>> retornarDiasdaSemanaTeste() {
+
+        List<Map<String, String>> dias = new ArrayList<>();
+
+        for (DiaSemana diaSemanaEnum:
+                List.of(DiaSemana.values())) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("cod" ,diaSemanaEnum.name());
+            map.put("valor", diaSemanaEnum.getDiaDaSemana());
+            dias.add(map);
+        }
+
         return dias;
     }
 }
