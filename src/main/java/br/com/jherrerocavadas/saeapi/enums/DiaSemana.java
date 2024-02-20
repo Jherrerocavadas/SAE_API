@@ -2,7 +2,7 @@ package br.com.jherrerocavadas.saeapi.enums;
 
 public enum DiaSemana {
     SEGUNDA("Segunda"),
-    TERÇA("Terça"),
+    TERCA("Terça"),
     QUARTA("Quarta"),
     QUINTA("Quinta"),
     SEXTA("Sexta"),

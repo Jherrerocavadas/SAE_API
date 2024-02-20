@@ -135,7 +135,7 @@ public class DisciplinaApi {
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
     })
-    @GetMapping("/disciplinas/DisciplinaEspecial")
+    @GetMapping("/disciplinas/disciplinaEspecial")
     public ResponseEntity<List<Disciplina>> retornarDisciplinaPorIndicadorIntervalo(@Param("indicadorDisciplinaEspecial") Boolean indicadorDisciplinaEspecial){
         List<Disciplina> disciplinas = disciplinaRepository.getDisciplinaByIsDisciplinaEspecial(indicadorDisciplinaEspecial);
         if(Objects.nonNull(disciplinas)){
