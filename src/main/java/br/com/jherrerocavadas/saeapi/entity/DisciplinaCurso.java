@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Entity
 @AllArgsConstructor
@@ -16,7 +14,7 @@ public class DisciplinaCurso {
 //TODO: Criar um DTO para manipulação das requests sem expor a entidade do banco de dados
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //Dados da faculdade
@@ -33,6 +31,8 @@ public class DisciplinaCurso {
 //            insertable=false, updatable=false,
             foreignKey = @ForeignKey(name = "UK_DISCIPLINACURSO_CURSO", value = ConstraintMode.CONSTRAINT))
     private Curso curso;
+
+    // TODO: Juntar dados da faculdade e do curso numa entidade FaculdadeCurso
 
     //Dados da disciplina
     @ManyToOne(cascade = CascadeType.DETACH)

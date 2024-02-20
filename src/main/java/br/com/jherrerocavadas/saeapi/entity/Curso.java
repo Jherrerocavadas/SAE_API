@@ -16,9 +16,13 @@ public class Curso {
     //TODO: Criar um DTO para manipulação das requests sem expor a entidade do banco de dados
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeCurso;
     private String siglaCurso;
     private Integer qtdSemestres;
+
+    public Curso(Long id) {
+        this.id = id;
+    }
 }

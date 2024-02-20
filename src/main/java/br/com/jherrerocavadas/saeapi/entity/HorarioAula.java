@@ -17,7 +17,7 @@ public class HorarioAula {
 //TODO: Criar um DTO para manipulação das requests sem expor a entidade do banco de dados
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Periodo periodo;
@@ -25,4 +25,8 @@ public class HorarioAula {
     private String inicioAula;
     private String fimAula;
     private Boolean isIntervalo;
+
+    public HorarioAula(Long id) {
+        this.id = id;
+    }
 }

@@ -18,7 +18,7 @@ public class Faculdade {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String codFaculdade;
@@ -27,4 +27,7 @@ public class Faculdade {
     private String cidade;
     private String endereco;
 
+    public Faculdade(Long id) {
+        this.id = id;
+        }
     }

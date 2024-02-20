@@ -16,7 +16,7 @@ public class Disciplina {
     //TODO: Criar um DTO para manipulação das requests sem expor a entidade do banco de dados
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String codDisciplina;
@@ -26,4 +26,8 @@ public class Disciplina {
     private Boolean isDisciplinaEspecial;
     private String corDisciplina; //Cor Hexadecimal (no padrão #xxxxxx) personalizada para a disciplina, para utilização no front
 
+
+    public Disciplina(Long id) {
+        this.id = id;
+    }
 }
